@@ -1,7 +1,23 @@
 import Head from 'next/head';
+import { useState } from 'react';
 import styles from '../styles/Home.module.css';
+import CountryTable from './components/countryTable';
 
-export default function Home() {
+export default function Home({ countries }) {
+  const [keyword, setKeyword] = useState("");
+
+  // filter country 
+  const filteredCountries = countries.filter(
+    (country) =>
+      country.name.common.includes(keyword)
+  );
+
+
+  // handle input change 
+  const handleInputChange = (e) => {
+    e.preventDefault();
+    setKeyword(e.target.value.toLowerCase());
+  }
   return (
     <div className={styles.container}>
       <Head>
@@ -12,10 +28,18 @@ export default function Home() {
 
       <h2 className={styles.title}>World Ranks</h2>
 
-      <div className={`${styles.search}`}>
-        <input className="form-control" placeholder="Filter by name, region or subregion" />
+      <div className={`${styles.search} my-5`}>
+        <input className="form-control" onChange={handleInputChange} placeholder="Filter by name, region or subregion" />
       </div>
 
+      <CountryTable countries={countries} />
     </div>
   )
+}
+
+export async function getStaticProps() {
+  const res = await fetch(`https://restcountries.com/v3.1/all`)
+  const countries = await res.json()
+
+  return { props: { countries } }
 }
