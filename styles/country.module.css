@@ -1,3 +1,15 @@
 .country {
   cursor: pointer;
 }
+
+.flags {
+  padding: 1rem;
+}
+
+.leftCard {
+  box-shadow: 5px 5px 14px #000000;
+}
+
+.publicMargin {
+  margin-top: 0.5px solid #000;
+}

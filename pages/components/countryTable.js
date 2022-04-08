@@ -1,6 +1,7 @@
+import Link from 'next/link';
 import { useRouter } from 'next/router';
 import React, { useState } from 'react';
-import Country from './country';
+import style from '../../styles/country.module.css';
 
 export default function CountryTable({ countries }) {
     const [country, setCountry] = useState({});
@@ -8,10 +9,10 @@ export default function CountryTable({ countries }) {
     const route = useRouter();
 
     //single country
-    // const handleClick = (data) => {
+    const handleClick = (data) => {
 
 
-    // }
+    }
     return (
         <>
             <table className="table table-dark table-striped">
@@ -28,7 +29,16 @@ export default function CountryTable({ countries }) {
                 <tbody>
                     {
                         countries.map((country, index) => (
-                            <Country country={country} index={index} />
+                            <Link href={`/country/${country.name.common}`} key={country.name}>
+                                <tr className={style.country}>
+                                    <th>{index + 1}</th>
+                                    <th>{country.flag}</th>
+                                    <td>{country.name.common}</td>
+                                    <td>{country.capital}</td>
+                                    <td>{country.population}</td>
+                                    <td>{country.area || 0}</td>
+                                </tr>
+                            </Link>
                         ))
                     }
                 </tbody>

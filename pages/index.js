@@ -29,7 +29,7 @@ export default function Home({ countries }) {
       <h2 className={styles.title}>World Ranks</h2>
 
       <div className={`${styles.search} my-5`}>
-        <input className="form-control" onChange={handleInputChange} placeholder="Filter by name, region or subregion" />
+        <input type="search" className="form-control" onChange={handleInputChange} placeholder="Filter by name, region or subregion" />
       </div>
 
       <CountryTable countries={countries} />
